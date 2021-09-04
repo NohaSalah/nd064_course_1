@@ -35,6 +35,15 @@ def check_posts_table():
     except:
         raise Exception("Error...posts table does not exist")
 
+# My Function to count the article and ++ number of used connections.
+def get_article_count(metricsObject):
+    conLink = get_db_connection()
+    articleCounter = conLink.execute('select count(*) from posts').fetchone()
+    conLink.close()
+
+    metricsObject['db_connection_count'] += 1
+    metricsObject['post_count'] = articleCounter[0]
+
 # Define the Flask application
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'
@@ -82,6 +91,7 @@ def create():
 
     return render_template('create.html')
 
+# Healthcheck endpoint
 """Define the Healthcheck endpoint with the following response:
 An HTTP 200 status code
 A JSON response containing the result: OK - healthy message"""
@@ -106,6 +116,36 @@ def healthz():
                                  )
 
     return response
+
+
+# Metrics endpoint
+"""/metrics endpoint that would return the following:
+An HTTP 200 status code
+A JSON response with the following metrics:
+Total amount of posts in the database
+Total amount of connections to the database. For example, accessing an article will query the database, hence will count as a connection.
+Example output: {"db_connection_count": 1, "post_count": 7}
+
+Tips: The /metrics endpoint response should NOT be hardcoded."""
+@app.route('/metrics', methods=['GET'])
+def metrics():
+    # define my dictionary metricsObject with the requirements
+    metricsObject = {
+                        'db_connection_count' : 0,
+                        'post_count' : None
+                    }
+
+    # call to my custome fn and the first initial output: {"db_connection_count": 1, "post_count": 6}
+    get_article_count(metricsObject)
+
+    response = app.response_class(
+                                     status = 200,
+                                     response = json.dumps(metricsObject),
+                                     mimetype = 'application/json'
+                                 )
+
+    return response
+
 
 
 # start the application on port 3111
