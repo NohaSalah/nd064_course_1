@@ -10,6 +10,14 @@ def get_db_connection():
     connection.row_factory = sqlite3.Row
     return connection
 
+# My Function to check a database connection.
+def check_db_connection():
+    try:
+        conLink = get_db_connection()
+        conLink.close()
+    except:
+        raise Exception("Failure.... in the Database Connection")
+
 # Function to get a post using its ID
 def get_post(post_id):
     connection = get_db_connection()
@@ -17,6 +25,15 @@ def get_post(post_id):
                         (post_id,)).fetchone()
     connection.close()
     return post
+
+# My Function to check posts table existance.
+def check_posts_table():
+    try:
+        conLink = get_db_connection()
+        conLink.execute('select 1 from posts').fetchone()
+        conLink.close()
+    except:
+        raise Exception("Error...posts table does not exist")
 
 # Define the Flask application
 app = Flask(__name__)
@@ -64,6 +81,32 @@ def create():
             return redirect(url_for('index'))
 
     return render_template('create.html')
+
+"""Define the Healthcheck endpoint with the following response:
+An HTTP 200 status code
+A JSON response containing the result: OK - healthy message"""
+@app.route('/healthz', methods=['GET'])
+def healthz():
+    status_code = 200
+    response_body = {'result' : 'OK - healthy'}
+    
+    try:
+        check_db_connection()
+        check_posts_table()
+
+    except Exception as excp:
+        status_code = 500
+        response_body = {'result': 'ERROR - unhealthy'}
+        response_body['description'] = str(excp)
+
+    response = app.response_class(
+                                     status = status_code,
+                                     response = json.dumps(response_body),
+                                     mimetype = 'application/json'
+                                 )
+
+    return response
+
 
 # start the application on port 3111
 if __name__ == "__main__":
