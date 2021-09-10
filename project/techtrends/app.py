@@ -68,7 +68,7 @@ def post(post_id):
       return render_template('404.html'), 404
     else:
     # Logs:An existing article is retrieved. The title of the article should be recorded in the log line.
-      logging.info('An existing article with title {} is retrieved'.format(posts['title']))
+      logging.info('An existing article with title {} is retrieved'.format(post['title']))
       return render_template('post.html', post=post)
 
 # Define the About Us page
