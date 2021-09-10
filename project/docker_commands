@@ -1,5 +1,6 @@
 ## Docker commands used to build the application 
 # TODO: insert the docker build command
+
 # --tag , -t --->Name and optionally a tag in the 'name:tag' format
 # to check : docker images
 
@@ -17,3 +18,26 @@ docker logs -f techtrends
 
 ## Logs from the container running the TechTrends application
 # TODO: paste logs from the Docker container 
+
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+INFO:werkzeug: * Running on http://0.0.0.0:3111/ (Press CTRL+C to quit)
+INFO:werkzeug:172.17.0.1 - - [10/Sep/2021 18:20:07] "GET / HTTP/1.1" 200 -
+INFO:root:An existing article with title 2020 CNCF Annual Report is retrieved
+INFO:werkzeug:172.17.0.1 - - [10/Sep/2021 18:20:08] "GET /1 HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [10/Sep/2021 18:30:01] "GET / HTTP/1.1" 200 -
+INFO:root:The "About Us" page is retrieved.
+INFO:werkzeug:172.17.0.1 - - [10/Sep/2021 18:30:03] "GET /about HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [10/Sep/2021 18:30:04] "GET /create HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [10/Sep/2021 18:30:11] "GET /healthz HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [10/Sep/2021 18:30:16] "GET /metrics HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [10/Sep/2021 18:30:19] "GET / HTTP/1.1" 200 -
+INFO:root:An existing article with title 2020 CNCF Annual Report is retrieved
+INFO:werkzeug:172.17.0.1 - - [10/Sep/2021 18:30:20] "GET /1 HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [10/Sep/2021 18:30:22] "GET / HTTP/1.1" 200 -
+INFO:root:An existing article with title Kubernetes v1.20 Release Notes is retrieved
+INFO:werkzeug:172.17.0.1 - - [10/Sep/2021 18:30:24] "GET /3 HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [10/Sep/2021 18:30:26] "GET / HTTP/1.1" 200 -
