@@ -1,11 +1,19 @@
 ## Docker commands used to build the application 
 # TODO: insert the docker build command
+# --tag , -t --->Name and optionally a tag in the 'name:tag' format
+# to check : docker images
+
+docker build -t nohasalah/techtrends .
 
 ## Docker commands used to run the application
 # TODO: insert the docker run command
 
+docker run -d --name techtrends -p 7111:3111 nohasalah/techtrends
+
 ## Docker commands used to get the application logs
 # TODO: insert the docker logs command
+
+docker logs -f techtrends
 
 ## Logs from the container running the TechTrends application
 # TODO: paste logs from the Docker container 
