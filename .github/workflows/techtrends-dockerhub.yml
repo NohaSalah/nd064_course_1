@@ -23,6 +23,4 @@ jobs:
           context: .
           platforms: linux/amd64
           push: true
-          tags: |
-            nohasalah/techtrends:latest
-            nohasalah/techtrends:${{ github.sha }}
+          tags: nohasalah/techtrends:latest
