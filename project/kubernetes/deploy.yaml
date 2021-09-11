@@ -14,8 +14,8 @@ spec:
         app: techtrends
     spec:
       containers:
-      - name: techtrends
-        image: nohasalah/techtrends:latest
+      - image: nohasalah/techtrends:latest
+        name: techtrends
         resources:
           limits:
             memory: "128Mi"
