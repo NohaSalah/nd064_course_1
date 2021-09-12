@@ -16,8 +16,8 @@ spec:
       containers:
       - image: {{ .Values.image.repository }} : {{ .Values.image.tag }}
         name: techtrends
-        resources: {{ toYaml.Values.resources | indent 12}}
+        resources: {{ toYaml .Values.resources | indent 12}}
         ports:
         - containerPort: {{ .Values.containerPort }}
-        livenessProbe: {{ toYaml.Values.livenessProbe | indent 12 }}
-        readinessProbe: {{ toYaml.Values.readinessProbe | indent 12 }}
+        livenessProbe: {{ toYaml .Values.livenessProbe | indent 12 }}
+        readinessProbe: {{ toYaml .Values.readinessProbe | indent 12 }}
