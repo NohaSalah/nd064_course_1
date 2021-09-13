@@ -36,13 +36,16 @@ def check_posts_table():
     except:
         raise Exception("Error...posts table does not exist")
 
+connCounter = 0
 # My Function to count the article and ++ number of used connections.
 def get_article_count(metricsObject):
     conLink = get_db_connection()
     articleCounter = conLink.execute('select count(*) from posts').fetchone()
     conLink.close()
 
-    metricsObject['db_connection_count'] += 1
+    global connCounter
+    connCounter += 1
+    metricsObject['db_connection_count'] = connCounter
     metricsObject['post_count'] = articleCounter[0]
 
 # Define the Flask application
