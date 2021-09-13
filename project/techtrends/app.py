@@ -1,5 +1,6 @@
 import sqlite3
 import logging
+import os
 
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
@@ -47,6 +48,20 @@ def get_article_count(metricsObject):
     connCounter += 1
     metricsObject['db_connection_count'] = connCounter
     metricsObject['post_count'] = articleCounter[0]
+
+
+def initialize_logger():
+    log_level = os.getenv("LOGLEVEL", "DEBUG").upper()
+    log_level = (
+        getattr(logging, log_level)
+        if log_level in ["CRITICAL", "DEBUG", "ERROR", "INFO", "WARNING",]
+        else logging.DEBUG
+    )
+
+    logging.basicConfig(
+        format='%(levelname)s:%(name)s:%(asctime)s, %(message)s',
+                level=log_level,
+    )
 
 # Define the Flask application
 app = Flask(__name__)
@@ -164,5 +179,6 @@ if __name__ == "__main__":
    """Logs:Every log line should include the timestamp and be outputted to the STDOUT and STDERR.
    Also, capture any Python logs at the DEBUG level.""" 
    # Logs configurations after using import logging
-   logging.basicConfig(level=logging.DEBUG) 
+#    logging.basicConfig(level=logging.DEBUG) 
+   initialize_logger()
    app.run(host='0.0.0.0', port='3111')
